@@ -42,7 +42,7 @@ oGameData.initGlobalObject = function() {
     //oGameData.gameField = Array('X', '', '', 'X', '', '', 'X', '', '');
     //oGameData.gameField = Array('X', '', '', '', 'X', '', '', '', 'X');
     //oGameData.gameField = Array('', '', 'X', '', 'X', '', 'X', '', '');
-    oGameData.gameField = Array('X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O');
+   // oGameData.gameField = Array('X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O');
 
     //Indikerar tecknet som skall användas för spelare ett.
     oGameData.playerOne = "X";
@@ -86,7 +86,7 @@ oGameData.checkForGameOver = function() {
     var over = 0;
     var arr = oGameData.gameField;
 
-        this.checkHorizontal = function (){
+    //    this.checkHorizontal = function (){
 
         if (arr[0] === "X" && arr[1] === "X" && arr[2] === "X"){
             over = 1;
@@ -111,9 +111,9 @@ oGameData.checkForGameOver = function() {
         else if (arr[6] === "O" && arr[7] === "O" && arr[8] === "O"){
             over = 2;
         }
-    }
+    //}
 
-        oGameData.checkVertical = function (){
+   //     oGameData.checkVertical = function (){
          if (arr[0] === "X" && arr[3] === "X" && arr[6] === "X"){
             over = 1;   
         }
@@ -137,9 +137,9 @@ oGameData.checkForGameOver = function() {
         else if (arr[2] === "O" && arr[5] === "O" && arr[8] === "O"){
             over = 2;   
         }
-    }
+   // }
 
-        oGameData.checkDiagonalLeftToRight = function(){       
+      //  oGameData.checkDiagonalLeftToRight = function(){       
 
         if (arr[0] === "O" && arr[4] === "O" && arr[8] === "O"){
             over = 2;   
@@ -147,9 +147,9 @@ oGameData.checkForGameOver = function() {
         else if (arr[0] === "X" && arr[4] === "X" && arr[8] === "X"){
             over = 2;   
         }
-    }
+   // }
 
-        oGameData.checkDiagonalRightToLeft = function(){
+       // oGameData.checkDiagonalRightToLeft = function(){
 
         if (arr[2] === "O" && arr[4] === "O" && arr[6] === "O"){
             over = 2;   
@@ -158,27 +158,22 @@ oGameData.checkForGameOver = function() {
             over = 2;
         }
 
-        oGameData.checkForDraw = function(){
+      //  oGameData.checkForDraw = function(){
             var draw=0;
             for (var i=0; i < arr.length; i++){
                 if (arr[i] != "")
                 draw++;
             }
-            if (draw === 9)
-            over  = 3;
-        }
+            if (draw === 9){
+            over  = 3;}
+      //  }
 
     return over;
-    }
+    //}
 }
 
 
 console.log( oGameData );
 oGameData.initGlobalObject();
 console.log( oGameData.gameField );
-console.log( oGameData.checkHorizontal() );
-console.log( oGameData.checkVertical() );
-console.log( oGameData.checkDiagonalLeftToRight() );
-console.log( oGameData.checkDiagonalRightToLeft() );
-console.log( oGameData.checkForDraw() );
-
+console.log( oGameData.checkForGameOver() );
