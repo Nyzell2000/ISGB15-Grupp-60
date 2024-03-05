@@ -42,7 +42,7 @@ oGameData.initGlobalObject = function() {
     //oGameData.gameField = Array('X', '', '', 'X', '', '', 'X', '', '');
     //oGameData.gameField = Array('X', '', '', '', 'X', '', '', '', 'X');
     //oGameData.gameField = Array('', '', 'X', '', 'X', '', 'X', '', '');
-    //oGameData.gameField = Array('X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O');
+    oGameData.gameField = Array('X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O');
 
     //Indikerar tecknet som skall användas för spelare ett.
     oGameData.playerOne = "X";
@@ -83,8 +83,102 @@ oGameData.initGlobalObject = function() {
  */
 oGameData.checkForGameOver = function() {
 
-   
+    var over = 0;
+    var arr = oGameData.gameField;
 
+        this.checkHorizontal = function (){
+
+        if (arr[0] === "X" && arr[1] === "X" && arr[2] === "X"){
+            over = 1;
+        }
+
+        else if (arr[3] === "X" && arr[4] === "X" && arr[5] === "X"){
+            over = 1;   
+        }
+
+        else if (arr[6] === "X" && arr[7] === "X" && arr[8] === "X"){
+            over = 1;
+        }
+
+        else if (arr[0] === "O" && arr[1] === "O" && arr[2] === "O"){
+            over = 2;
+        }
+
+        else if (arr[3] === "O" && arr[4] === "O" && arr[5] === "O"){
+            over = 2;   
+        }
+
+        else if (arr[6] === "O" && arr[7] === "O" && arr[8] === "O"){
+            over = 2;
+        }
+    }
+
+        oGameData.checkVertical = function (){
+         if (arr[0] === "X" && arr[3] === "X" && arr[6] === "X"){
+            over = 1;   
+        }
+
+        else if (arr[1] === "X" && arr[4] === "X" && arr[7] === "X"){
+            over = 1;   
+        }
+
+        else if (arr[2] === "X" && arr[5] === "X" && arr[8] === "X"){
+            over = 1;   
+        }
+
+        else if (arr[0] === "O" && arr[3] === "O" && arr[6] === "O"){
+            over = 2;   
+        }
+
+        else if (arr[1] === "O" && arr[4] === "O" && arr[7] === "O"){
+            over = 2;   
+        }
+
+        else if (arr[2] === "O" && arr[5] === "O" && arr[8] === "O"){
+            over = 2;   
+        }
+    }
+
+        oGameData.checkDiagonalLeftToRight = function(){       
+
+        if (arr[0] === "O" && arr[4] === "O" && arr[8] === "O"){
+            over = 2;   
+        }
+        else if (arr[0] === "X" && arr[4] === "X" && arr[8] === "X"){
+            over = 2;   
+        }
+    }
+
+        oGameData.checkDiagonalRightToLeft = function(){
+
+        if (arr[2] === "O" && arr[4] === "O" && arr[6] === "O"){
+            over = 2;   
+        } 
+        else if (arr[2] === "X" && arr[4] === "X" && arr[6] === "X"){
+            over = 2;
+        }
+
+        oGameData.checkForDraw = function(){
+            var draw=0;
+            for (var i=0; i < arr.length; i++){
+                if (arr[i] != "")
+                draw++;
+            }
+            if (draw === 9)
+            over  = 3;
+        }
+
+    return over;
+    }
 }
 
+
+console.log( oGameData );
+oGameData.initGlobalObject();
+console.log( oGameData.gameField );
+console.log( oGameData.checkHorizontal() );
+console.log( oGameData.checkVertical() );
+console.log( oGameData.checkDiagonalLeftToRight() );
+console.log( oGameData.checkDiagonalRightToLeft() );
+console.log( oGameData.checkForDraw() );
 
