@@ -38,7 +38,7 @@ oGameData.initGlobalObject = function() {
     oGameData.gameField = Array('', '', '', '', '', '', '', '', '');
     
     /* Testdata för att testa rättningslösning */
-    //oGameData.gameField = Array('X', 'X', 'X', '', '', '', '', '', '');
+    oGameData.gameField = Array('X', 'X', 'X', '', '', '', '', '', '');
     //oGameData.gameField = Array('X', '', '', 'X', '', '', 'X', '', '');
     //oGameData.gameField = Array('X', '', '', '', 'X', '', '', '', 'X');
     //oGameData.gameField = Array('', '', 'X', '', 'X', '', 'X', '', '');
@@ -86,7 +86,7 @@ oGameData.checkForGameOver = function() {
     var over = 0;
     var arr = oGameData.gameField;
 
-    //    this.checkHorizontal = function (){
+       oGameData.checkHorizontal = function (){
 
         if (arr[0] === "X" && arr[1] === "X" && arr[2] === "X"){
             over = 1;
@@ -111,9 +111,11 @@ oGameData.checkForGameOver = function() {
         else if (arr[6] === "O" && arr[7] === "O" && arr[8] === "O"){
             over = 2;
         }
-    //}
+        return over;
+    }
 
-   //     oGameData.checkVertical = function (){
+        oGameData.checkVertical = function (){
+
          if (arr[0] === "X" && arr[3] === "X" && arr[6] === "X"){
             over = 1;   
         }
@@ -137,19 +139,21 @@ oGameData.checkForGameOver = function() {
         else if (arr[2] === "O" && arr[5] === "O" && arr[8] === "O"){
             over = 2;   
         }
-   // }
+        return over;
+    }
 
-      //  oGameData.checkDiagonalLeftToRight = function(){       
+      oGameData.checkDiagonalLeftToRight = function(){       
 
         if (arr[0] === "O" && arr[4] === "O" && arr[8] === "O"){
             over = 2;   
         }
         else if (arr[0] === "X" && arr[4] === "X" && arr[8] === "X"){
-            over = 2;   
+            over = 2; 
         }
-   // }
+        return over;
+    }
 
-       // oGameData.checkDiagonalRightToLeft = function(){
+        oGameData.checkDiagonalRightToLeft = function(){
 
         if (arr[2] === "O" && arr[4] === "O" && arr[6] === "O"){
             over = 2;   
@@ -157,23 +161,25 @@ oGameData.checkForGameOver = function() {
         else if (arr[2] === "X" && arr[4] === "X" && arr[6] === "X"){
             over = 2;
         }
-
-      //  oGameData.checkForDraw = function(){
+    }
+        oGameData.checkForDraw = function(){
             var draw=0;
             for (var i=0; i < arr.length; i++){
                 if (arr[i] != "")
                 draw++;
             }
             if (draw === 9){
-            over  = 3;}
-      //  }
+            over  = 3;
+            }
+        }
 
     return over;
-    //}
-}
+    }
+
 
 
 console.log( oGameData );
 oGameData.initGlobalObject();
 console.log( oGameData.gameField );
 console.log( oGameData.checkForGameOver() );
+console.log(oGameData.checkHorizontal() );
