@@ -187,7 +187,19 @@ document.addEventListener( "DOMContentLoaded", function(){
     newGame.addEventListener("click", validateForm);
 });
 
+function validateForm() {
+    var oNick1 = document.getElementById("nick1");
+    var oNick2 = document.getElementById("nick2");
+    var oColor1 = document.getElementById("color1");
+    var oColor2 = document.getElementById("color2");
+    var oError = document.getElementById("errorMsg");
 
+    if(oNick1.length < 5 || oNick2.length < 5 || oNick1 === oNick2 || oColor1 === oColor2 || oColor1.value == "#000000" || oColor1.value == "#FFFFFF" || oColor2.value == "#000000" || oColor2.value == "#FFFFFF"){
+      oError.style.display = "block";
+    }else {
+        oError.style.display = "none";
+    }
+}
 
 
 
