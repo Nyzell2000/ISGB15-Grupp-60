@@ -3,6 +3,7 @@
 
 
 
+
 //Testutskrifter
 /*
 console.log( oGameData );
@@ -175,6 +176,18 @@ oGameData.checkForGameOver = function() {
 
     return over;
     }
+
+
+
+document.addEventListener( "DOMContentLoaded", function(){
+    
+    oGameData.initGlobalObject();
+    document.querySelector("#game-area").classList.add("d-none");
+    
+    newGame.addEventListener("click", validateForm);
+});
+
+
 
 
 
