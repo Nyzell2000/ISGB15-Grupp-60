@@ -187,20 +187,44 @@ document.addEventListener( "DOMContentLoaded", function(){
     newGame.addEventListener("click", validateForm);
 });
 
-function validateForm() {
-    var oNick1 = document.getElementById("nick1");
-    var oNick2 = document.getElementById("nick2");
-    var oColor1 = document.getElementById("color1");
-    var oColor2 = document.getElementById("color2");
-    var oError = document.getElementById("errorMsg");
+function validateForm(oEvt) {
+    let nickNames = document.querySelector('input[type="text"]');
+    let colors = document.querySelector('input[type="color"]');
+    
 
-    if(oNick1.length < 5 || oNick2.length < 5 || oNick1 === oNick2 || oColor1 === oColor2 || oColor1.value == "#000000" || oColor1.value == "#FFFFFF" || oColor2.value == "#000000" || oColor2.value == "#FFFFFF"){
-      oError.style.display = "block";
-    }else {
-        oError.style.display = "none";
+    try{
+
+        nickNames.forEach(nick=>{
+            if(nick.value.length<5){
+                nick.focus();
+                throw new Error(nick.getAttribute('title'));
+            }
+            elseif(nick.value === nick.value){
+                nick.focus();
+                throw new Error(nick.getAttribute('title'));
+            }
+        });
+
+        colors.forEach(color=>{
+            if(color == '#000000'){
+                color.focus();
+                throw new Error(color.getAttribute('title'));
+            }
+            elseif(color == '#FFFFFF'){
+                color.focus();
+                throw new Error(color.getAttribute('title'));
+            }
+        });
+
     }
-}
+    catch(error){
+        oEvt.preventDefault();
+        let oError = document.querySelector('#errorMsg');
+        oError.textContent = 'Ange ' + error.message;
+        oError.setAttribute('class', 'alert alert-danger');
+    }
 
+    }
 
 
 console.log( oGameData );
