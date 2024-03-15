@@ -186,7 +186,7 @@ document.addEventListener( "DOMContentLoaded", function(){
     
     newGame.addEventListener("click", validateForm);
 });
-
+//funktion som validerar att nicks är större än 5, samt colors inte är vit eller svart eller samma.
 function validateForm(oEvt) {
     let nickNames = document.querySelector('input[type="text"]');
     let colors = document.querySelector('input[type="color"]');
@@ -211,6 +211,10 @@ function validateForm(oEvt) {
                 throw new Error(color.getAttribute('title'));
             }
             if(color == '#FFFFFF'){
+                color.focus();
+                throw new Error(color.getAttribute('title'));
+            }
+            if(color === colors){
                 color.focus();
                 throw new Error(color.getAttribute('title'));
             }
