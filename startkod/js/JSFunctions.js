@@ -199,7 +199,7 @@ function validateForm(oEvt) {
                 nick.focus();
                 throw new Error(nick.getAttribute('title'));
             }
-            elseif(nick.value === nick.value){
+            if(nick.value === nick.value){
                 nick.focus();
                 throw new Error(nick.getAttribute('title'));
             }
@@ -210,7 +210,7 @@ function validateForm(oEvt) {
                 color.focus();
                 throw new Error(color.getAttribute('title'));
             }
-            elseif(color == '#FFFFFF'){
+            if(color == '#FFFFFF'){
                 color.focus();
                 throw new Error(color.getAttribute('title'));
             }
