@@ -206,15 +206,15 @@ function validateForm(oEvt) {
         });
 
         colors.forEach(color=>{
-            if(color == '#000000'){
+            if(color.value == '#000000'){
                 color.focus();
                 throw new Error(color.getAttribute('title'));
             }
-            if(color == '#FFFFFF'){
+            if(color.value == '#FFFFFF'){
                 color.focus();
                 throw new Error(color.getAttribute('title'));
             }
-            if(color === colors){
+            if(color.value === color.value){
                 color.focus();
                 throw new Error(color.getAttribute('title'));
             }
