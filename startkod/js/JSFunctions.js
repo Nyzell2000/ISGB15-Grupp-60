@@ -31,7 +31,7 @@ let oGameData = {};
  * Funktionen tar inte emot några värden.
  * Funktionen returnerar inte något värde.
  */
-oGameData.initGlobalObject=function() {
+oGameData.initGlobalObject = function() {
 
     //Datastruktur för vilka platser som är lediga respektive har brickor
     oGameData.gameField = Array('', '', '', '', '', '', '', '', '');
@@ -183,7 +183,7 @@ oGameData.checkForGameOver = function() {
         document.querySelector("#game-area").classList.add("d-none");
         
         newGame.addEventListener("click", oGameData.validateForm);
-    }, true);
+    });
     
     //funktion som validerar att nicks är större än 5, samt colors inte är vit eller svart eller samma.
     oGameData.validateForm = function (oEvt) {
@@ -238,11 +238,13 @@ oGameData.checkForGameOver = function() {
     
         document.querySelector('#errorMsg').textContent = "";
     
-        oGameData.initGlobalObject.nickNamePlayerOne = document.querySelector("#nick1").value;
-        oGameData.initGlobalObject.nickNamePlayerTwo = document.querySelector("#nick2").value;
-        oGameData.initGlobalObject.colorPlayerOne = document.querySelector("#color1").value;
-        oGameData.initGlobalObject.colorPlayerTwo = document.querySelector("#color2").value;
+        oGameData.nickNamePlayerOne = document.querySelector("#nick1").value;
+        oGameData.nickNamePlayerTwo = document.querySelector("#nick2").value;
+        oGameData.colorPlayerOne = document.querySelector("#color1").value;
+        oGameData.colorPlayerTwo = document.querySelector("#color2").value;
     
+        console.log(oGameData.nickNamePlayerOne);
+
         document.querySelectorAll("td").forEach(td => {
             td.textContent = "", td.bgColor = "#ffffff"
         }); 
@@ -250,23 +252,19 @@ oGameData.checkForGameOver = function() {
         var playerChar = null;
         var playerName = null;
     
-        //if(Math.random()>0.5){
-            playerChar = oGameData.initGlobalObject.playerOne;
-            playerName = oGameData.initGlobalObject.nickNamePlayerOne;
-            oGameData.initGlobalObject.currentPlayer = oGameData.initGlobalObject.playerOne;
-       /* } else {
-            playerChar = oGameData.initGlobalObject.playerTwo;
+        if(Math.random()>0.5){
+            playerChar = oGameData.playerOne;
+            playerName = oGameData.nickNamePlayerOne;
+            oGameData.currentPlayer = oGameData.playerOne;
+        } else {
+            playerChar = oGameData.playerTwo;
             playerName = oGameData.nickNamePlayerTwo;
             oGameData.currentPlayer = oGameData.playerTwo;
-        }*/
+        }
     
         document.querySelector(".jumbotron").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
             
-        
-        
-    
     }
-    console.log(oGameData.initGlobalObject.nickNamePlayerOne, oGameData.initGlobalObject.nickNamePlayerTwo,oGameData.initGlobalObject.colorPlayerOne, oGameData.initGlobalObject.colorPlayerTwo);
     
     
 
