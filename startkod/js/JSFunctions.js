@@ -2,8 +2,6 @@
 
 
 
-
-
 //Testutskrifter
 /*
 console.log( oGameData );
@@ -33,7 +31,7 @@ let oGameData = {};
  * Funktionen tar inte emot några värden.
  * Funktionen returnerar inte något värde.
  */
-oGameData.initGlobalObject = function() {
+oGameData.initGlobalObject=function() {
 
     //Datastruktur för vilka platser som är lediga respektive har brickor
     oGameData.gameField = Array('', '', '', '', '', '', '', '', '');
@@ -86,8 +84,17 @@ oGameData.checkForGameOver = function() {
 
     var over = 0;
     var arr = oGameData.gameField;
+    var draw=0;
 
-       oGameData.checkHorizontal = function (){
+    for (var i=0; i < arr.length; i++){
+        if (arr[i] != "")
+        draw++;
+    }
+    if (draw === 9){
+    over  = 3;
+    }
+
+    //  oGameData.checkHorizontal = function (){
 
         if (arr[0] === "X" && arr[1] === "X" && arr[2] === "X"){
             over = 1;
@@ -112,10 +119,10 @@ oGameData.checkForGameOver = function() {
         else if (arr[6] === "O" && arr[7] === "O" && arr[8] === "O"){
             over = 2;
         }
-        return over;
-    }
+       // return over;
+    //}
 
-        oGameData.checkVertical = function (){
+      //  oGameData.checkVertical = function (){
 
          if (arr[0] === "X" && arr[3] === "X" && arr[6] === "X"){
             over = 1;   
@@ -140,137 +147,128 @@ oGameData.checkForGameOver = function() {
         else if (arr[2] === "O" && arr[5] === "O" && arr[8] === "O"){
             over = 2;   
         }
-        return over;
-    }
+       // return over;
+   // }
 
-      oGameData.checkDiagonalLeftToRight = function(){       
+    //  oGameData.checkDiagonalLeftToRight = function(){       
 
         if (arr[0] === "O" && arr[4] === "O" && arr[8] === "O"){
             over = 2;   
         }
         else if (arr[0] === "X" && arr[4] === "X" && arr[8] === "X"){
-            over = 2; 
+            over = 1; 
         }
-        return over;
-    }
+      //  return over;
+    //}
 
-        oGameData.checkDiagonalRightToLeft = function(){
+      //  oGameData.checkDiagonalRightToLeft = function(){
 
         if (arr[2] === "O" && arr[4] === "O" && arr[6] === "O"){
             over = 2;   
         } 
         else if (arr[2] === "X" && arr[4] === "X" && arr[6] === "X"){
-            over = 2;
+            over = 1;
         }
-    }
-        oGameData.checkForDraw = function(){
-            var draw=0;
-            for (var i=0; i < arr.length; i++){
-                if (arr[i] != "")
-                draw++;
-            }
-            if (draw === 9){
-            over  = 3;
-            }
-        }
+    //}
+       // oGameData.checkForDraw = function(){
+
+     //   }
 
     return over;
     }
 
-
-
-document.addEventListener( "DOMContentLoaded", function(){
+    document.addEventListener( "DOMContentLoaded", function(){
     
-    oGameData.initGlobalObject();
-    document.querySelector("#game-area").classList.add("d-none");
-    
-    newGame.addEventListener("click", validateForm);
-});
-//funktion som validerar att nicks är större än 5, samt colors inte är vit eller svart eller samma.
-function validateForm(oEvt) {
-    let nickNames = document.querySelectorAll('input[type="text"]');
-    let colors = document.querySelectorAll('input[type="color"]');
-    
-    
-
-    try{
-
-        nickNames.forEach(nick=>{
-            if(nick.value.length<5){
-                nick.focus();
-                throw new Error('Ange ' + nick.getAttribute('title'));
-            }
-        });
-
-        if (nickNames[0].value=== nickNames[1].value){
-            throw new Error("Nicknames får inte vara samma!");
-        }
-
-
-        colors.forEach(color=>{
-            if(color.value === '#000000' || color.value === '#ffffff'){
-                color.focus();
-                throw new Error("Färgen får inte vara svart eller vit");
-            }
-
-        });
-
-        if(colors[0].value === colors[1].value){
-            colors[0].focus();
-            colors[1].focus();
-            throw new Error("Färgerna får inte vara samma");
-        }
-        initiateGame();
-
-    }
-    catch(error){
-        oEvt.preventDefault();
-        let oError = document.querySelector('#errorMsg');
-        oError.textContent = error.message;
-        oError.setAttribute('class', 'alert alert-danger');
-    }
-
-}
-
-function initiateGame(){
-    document.querySelector("form").classList.add("d-none");
-    document.querySelector("#game-area").classList.remove("d-none");
-
-    document.querySelector('#errorMsg').textContent = "";
-
-    oGameData.nickNamePlayerOne = document.querySelector("#nick1").value;
-    oGameData.nickNamePlayerTwo = document.querySelector("#nick2").value;
-    oGameData.colorPlayerOne = document.querySelector("#color1").value;
-    oGameData.colorPlayerTwo = document.querySelector("#color2").value;
-
-    document.querySelectorAll("td").forEach(td => {
-        td.textContent = "", td.bgColor = "#ffffff";
-    }); 
-
-    var playerChar;
-    var playerName;
-
-    if(Math.random()>0.5){
-        playerChar = oGameData.playerOne;
-        playerName = oGameData.nickNamePlayerOne;
-        oGameData.currentPlayer = oGameData.playerOne;
-    } else {
-        playerChar = oGameData.playerTwo;
-        playerName = oGameData.nickNamePlayerTwo;
-        oGameData.currentPlayer = oGameData.playerTwo;
-    }
-
-    document.querySelector(".jumbotron").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
+        oGameData.initGlobalObject();
+        document.querySelector("#game-area").classList.add("d-none");
         
+        newGame.addEventListener("click", oGameData.validateForm);
+    }, true);
+    
+    //funktion som validerar att nicks är större än 5, samt colors inte är vit eller svart eller samma.
+    oGameData.validateForm = function (oEvt) {
+        let nickNames = document.querySelectorAll('input[type="text"]');
+        let colors = document.querySelectorAll('input[type="color"]');
+        
+        
+    
+        try{
+    
+            nickNames.forEach(nick=>{
+                if(nick.value.length<5){
+                    nick.focus();
+                    throw new Error('Ange ' + nick.getAttribute('title'));
+                }
+            });
+    
+            if (nickNames[0].value=== nickNames[1].value){
+                throw new Error("Nicknames får inte vara samma!");
+            }
+    
+    
+            colors.forEach(color=>{
+                if(color.value === '#000000' || color.value === '#ffffff'){
+                    color.focus();
+                    throw new Error("Färgen får inte vara svart eller vit");
+                }
+    
+            });
+    
+            if(colors[0].value === colors[1].value){
+                colors[0].focus();
+                colors[1].focus();
+                throw new Error("Färgerna får inte vara samma");
+            }
+    
+            oGameData.initiateGame();
+    
+        }
+        catch(error){
+            oEvt.preventDefault();
+            let oError = document.querySelector('#errorMsg');
+            document.querySelector("#errorMsg").textContent = error.message;
+            oError.setAttribute('class', 'alert alert-danger');
+        }
+    
+    }
+    
+    oGameData.initiateGame = function(){
+        document.querySelector("form").classList.add("d-none");
+        document.querySelector("#game-area").classList.remove("d-none");
+    
+        document.querySelector('#errorMsg').textContent = "";
+    
+        oGameData.initGlobalObject.nickNamePlayerOne = document.querySelector("#nick1").value;
+        oGameData.initGlobalObject.nickNamePlayerTwo = document.querySelector("#nick2").value;
+        oGameData.initGlobalObject.colorPlayerOne = document.querySelector("#color1").value;
+        oGameData.initGlobalObject.colorPlayerTwo = document.querySelector("#color2").value;
+    
+        document.querySelectorAll("td").forEach(td => {
+            td.textContent = "", td.bgColor = "#ffffff"
+        }); 
+    
+        var playerChar = null;
+        var playerName = null;
+    
+        //if(Math.random()>0.5){
+            playerChar = oGameData.initGlobalObject.playerOne;
+            playerName = oGameData.initGlobalObject.nickNamePlayerOne;
+            oGameData.initGlobalObject.currentPlayer = oGameData.initGlobalObject.playerOne;
+       /* } else {
+            playerChar = oGameData.initGlobalObject.playerTwo;
+            playerName = oGameData.nickNamePlayerTwo;
+            oGameData.currentPlayer = oGameData.playerTwo;
+        }*/
+    
+        document.querySelector(".jumbotron").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
+            
+        
+        
+    
+    }
+    console.log(oGameData.initGlobalObject.nickNamePlayerOne, oGameData.initGlobalObject.nickNamePlayerTwo,oGameData.initGlobalObject.colorPlayerOne, oGameData.initGlobalObject.colorPlayerTwo);
+    
+    
 
-}
 
-
-
-
-console.log( oGameData );
-oGameData.initGlobalObject();
-console.log( oGameData.gameField );
-console.log( oGameData.checkForGameOver() );
-console.log(oGameData.checkHorizontal() );
 
