@@ -268,50 +268,46 @@ oGameData.checkForGameOver = function() {
         oGameData.colorPlayerOne = document.querySelector("#color1").value;
         oGameData.colorPlayerTwo = document.querySelector("#color2").value;
     
-        console.log(oGameData.nickNamePlayerOne);
 
         document.querySelectorAll("td").forEach(td => {
             td.textContent = "";
             td.style.backgroundColor = "white";
         });     
     
-        var playerChar = "";
-        var playerName = "";
+        let playerChar = null;
+        let playerName = null;
+        let playerColor = null;
     
         if(Math.random()>0.5){
             playerChar = oGameData.playerOne;
             playerName = oGameData.nickNamePlayerOne;
-            oGameData.currentPlayer = oGameData.playerOne;
+            playerColor = oGameData.colorPlayerOne;
+            oGameData.currentPlayer = playerName;
         } else {
             playerChar = oGameData.playerTwo;
             playerName = oGameData.nickNamePlayerTwo;
-            oGameData.currentPlayer = oGameData.playerTwo;
+            playerColor = oGameData.colorPlayerTwo;
+            oGameData.currentPlayer = [playerName] + [playerChar] + [playerColor];
         }
 
     
         document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
           
-       // td.addEventListener('click', executeMove);
+        document.querySelector('table').addEventListener('click', executeMove);
+
+        function executeMove(oEvt){
+    
+            if(oEvt.target.nodeName === 'TD'){
+                oEvt.target.style.backgroundColor = playerColor;
+                oEvt.target.textContent = playerChar;
+            }
+    
 
         //executeMove();
     }
-/*
-    function executeMove(){
-
-        let m = oGameData.currentPlayer.value;
-
-        let td = document.querySelector('td');
-
-        let newMove = document.createElement('td');
-        newMove.setAttribute('style', 'background-color:' + m);
-        newMove.textContent = oGameData.currentPlayer.textContent;
-
-    body.appendChild(newMove);
 
 
-
-
-    }*/
+    }
 
 
 
