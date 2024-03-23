@@ -325,8 +325,28 @@ oGameData.checkForGameOver = function() {
         }
 
     
-        document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
-            
+        document.querySelector(".jumbotron").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
+          
+        td.addEventListener('click', executeMove);
+
+        executeMove();
+    }
+
+    function executeMove(){
+
+        let m = oGameData.currentPlayer.value;
+
+        let td = document.querySelector('td');
+
+        let newMove = document.createElement('td');
+        newMove.setAttribute('style', 'background-color:' + m);
+        newMove.textContent = oGameData.currentPlayer.textContent;
+
+    body.appendChild(newMove);
+
+
+
+
     }
     
 oGameData.initGlobalObject();
