@@ -187,7 +187,7 @@ oGameData.checkForGameOver = function() {
 
     return over;
     }
-
+/*
     oGameData.checkHorizontal = function(){
 
         var arr = oGameData.gameField;
@@ -224,7 +224,7 @@ oGameData.checkForGameOver = function() {
             win = arr[0];
         }
         return win;
-    }
+    }*/
 
 
     window.addEventListener( "load", function(){
@@ -296,7 +296,6 @@ oGameData.checkForGameOver = function() {
     function initiateGame() {
         document.querySelector("form").classList.add("d-none");
         document.querySelector("#game-area").classList.remove("d-none");
-    
         document.querySelector('#errorMsg').textContent = "";
     
         oGameData.nickNamePlayerOne = document.querySelector("#nick1").value;
@@ -311,8 +310,8 @@ oGameData.checkForGameOver = function() {
             td.style.backgroundColor = "white";
         });     
     
-        var playerChar;
-        var playerName;
+        var playerChar = "";
+        var playerName = "";
     
         if(Math.random()>0.5){
             playerChar = oGameData.playerOne;
@@ -325,13 +324,13 @@ oGameData.checkForGameOver = function() {
         }
 
     
-        document.querySelector(".jumbotron").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
+        document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
           
-        td.addEventListener('click', executeMove);
+       // td.addEventListener('click', executeMove);
 
-        executeMove();
+        //executeMove();
     }
-
+/*
     function executeMove(){
 
         let m = oGameData.currentPlayer.value;
@@ -348,7 +347,7 @@ oGameData.checkForGameOver = function() {
 
 
     }
-    
+    /*
 oGameData.initGlobalObject();
 console.log( oGameData.checkHorizontal() );
 console.log( oGameData.checkVertical() );
@@ -357,5 +356,5 @@ console.log( oGameData.checkDiagonalLeftToRight() );
 //console.log( oGameData.checkForDraw() );
 
 
-
+*/
 
