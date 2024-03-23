@@ -37,7 +37,7 @@ oGameData.initGlobalObject = function() {
     oGameData.gameField = Array('', '', '', '', '', '', '', '', '');
     
     /* Testdata för att testa rättningslösning */
-    oGameData.gameField = Array('O', 'O', 'O', '', '', '', '', '', '');
+    //oGameData.gameField = Array('O', 'O', 'O', '', '', '', '', '', '');
     //oGameData.gameField = Array('X', '', '', 'X', '', '', 'X', '', '');
     //oGameData.gameField = Array('X', '', '', '', 'X', '', '', '', 'X');
     //oGameData.gameField = Array('', '', 'X', '', 'X', '', 'X', '', '');
@@ -276,38 +276,56 @@ oGameData.checkForGameOver = function() {
     
         let playerChar = null;
         let playerName = null;
-        let playerColor = null;
+        
     
         if(Math.random()>0.5){
             playerChar = oGameData.playerOne;
             playerName = oGameData.nickNamePlayerOne;
-            playerColor = oGameData.colorPlayerOne;
-            oGameData.currentPlayer = playerName;
+            oGameData.currentPlayer = oGameData.playerOne;
         } else {
             playerChar = oGameData.playerTwo;
             playerName = oGameData.nickNamePlayerTwo;
-            playerColor = oGameData.colorPlayerTwo;
-            oGameData.currentPlayer = [playerName] + [playerChar] + [playerColor];
+            oGameData.currentPlayer = oGameData.playerTwo;
         }
 
     
-        document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är (" + oGameData.currentPlayer + ")";
+        document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är " + playerName + "(" + playerChar + ")";
           
         document.querySelector('table').addEventListener('click', executeMove);
+    }
 
-        function executeMove(oEvt){
+    function executeMove(oEvt){
     
-            if(oEvt.target.nodeName === 'TD'){
-                oEvt.target.style.backgroundColor = playerColor;
-                oEvt.target.textContent = playerChar;
+        if(oEvt.target.nodeName === 'TD' && oEvt.target.textContent === ""){
+
+            oEvt.target.textContent = oGameData.currentPlayer;
+            oGameData.gameField[oEvt.target.getAttribute("data-id")] = oGameData.currentPlayer;
+
+            
+
+            if (oGameData.currentPlayer === "X"){ 
+                oEvt.target.style.backgroundColor = oGameData.colorPlayerOne;
+            }else {
+                oEvt.target.style.backgroundColor = oGameData.colorPlayerTwo;
+            }
+
+            if (oGameData.currentPlayer === "X"){ 
+                oGameData.currentPlayer = oGameData.playerTwo;
+                document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är " + oGameData.nickNamePlayerTwo + "(" + oGameData.currentPlayer + ")";
+            }else {
+                oGameData.currentPlayer = oGameData.playerOne;
+                document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är " + oGameData.nickNamePlayerOne + "(" + oGameData.currentPlayer + ")";
             }
     
-
-        //executeMove();
-    }
-
-
-    }
+            if (oGameData.checkForGameOver() > 0){
+                document.querySelector(".jumbotron h1").textContent = "Grattis någon vann!";
+            }
+            console.log(oGameData.checkForGameOver());
+            console.log(oEvt.target.textContent);
+            console.log(oGameData.gameField);
+            console.log(oEvt.target);
+        }
+    } 
 
 
 
