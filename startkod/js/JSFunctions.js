@@ -37,12 +37,12 @@ oGameData.initGlobalObject = function() {
     oGameData.gameField = Array('', '', '', '', '', '', '', '', '');
     
     /* Testdata för att testa rättningslösning */
-    //oGameData.gameField = Array('X', 'X', 'X', '', '', '', '', '', '');
+    oGameData.gameField = Array('O', 'O', 'O', '', '', '', '', '', '');
     //oGameData.gameField = Array('X', '', '', 'X', '', '', 'X', '', '');
     //oGameData.gameField = Array('X', '', '', '', 'X', '', '', '', 'X');
     //oGameData.gameField = Array('', '', 'X', '', 'X', '', 'X', '', '');
-    // oGameData.gameField = Array('X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O');
-    oGameData.gameField = Array('', '', '', '', '', '', 'X', 'X', 'X');
+    //oGameData.gameField = Array('X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O');
+    //oGameData.gameField = Array('', '', '', '', '', '', 'O', 'O', 'O');
 
     //Indikerar tecknet som skall användas för spelare ett.
     oGameData.playerOne = "X";
@@ -83,163 +83,124 @@ oGameData.initGlobalObject = function() {
  */
 oGameData.checkForGameOver = function() {
 
-    var over = 0;
-    var arr = oGameData.gameField;
-    var draw=0;
-
-    for (var i=0; i < arr.length; i++){
-        if (arr[i] != "")
-        draw++;
-    }
-    if (draw === 9){
-    over  = 3;
+    var win = 0;    
+    
+    if (oGameData.checkForDraw() !== false){    // Sätter win till 'draw' om true returneras.
+       win = 'draw';
     }
 
-
-    for (let i = 0; i<9; i+3){
-
-        if (arr[i] === arr[i+1] && arr[i+1] === arr[i+2])
-            if (arr[i] === 'X')
-                return 1;
-            else if (arr[i] === 'O')
-                return 2;
-            }
-
-    //  oGameData.checkHorizontal = function (){
-
-        if (arr[0] === "X" && arr[1] === "X" && arr[2] === "X"){
-            over = 1;
-        }
-
-        else if (arr[3] === "X" && arr[4] === "X" && arr[5] === "X"){
-            over = 1;   
-        }
-
-        else if (arr[6] === "X" && arr[7] === "X" && arr[8] === "X"){
-            over = 1;
-        }
-
-        else if (arr[0] === "O" && arr[1] === "O" && arr[2] === "O"){
-            over = 2;
-        }
-
-        else if (arr[3] === "O" && arr[4] === "O" && arr[5] === "O"){
-            over = 2;   
-        }
-
-        else if (arr[6] === "O" && arr[7] === "O" && arr[8] === "O"){
-            over = 2;
-        }
-       // return over;
-    //}
-
-      //  oGameData.checkVertical = function (){
-
-         if (arr[0] === "X" && arr[3] === "X" && arr[6] === "X"){
-            over = 1;   
-        }
-
-        else if (arr[1] === "X" && arr[4] === "X" && arr[7] === "X"){
-            over = 1;   
-        }
-
-        else if (arr[2] === "X" && arr[5] === "X" && arr[8] === "X"){
-            over = 1;   
-        }
-
-        else if (arr[0] === "O" && arr[3] === "O" && arr[6] === "O"){
-            over = 2;   
-        }
-
-        else if (arr[1] === "O" && arr[4] === "O" && arr[7] === "O"){
-            over = 2;   
-        }
-
-        else if (arr[2] === "O" && arr[5] === "O" && arr[8] === "O"){
-            over = 2;   
-        }
-       // return over;
-   // }
-
-    //  oGameData.checkDiagonalLeftToRight = function(){       
-
-        if (arr[0] === "O" && arr[4] === "O" && arr[8] === "O"){
-            over = 2;   
-        }
-        else if (arr[0] === "X" && arr[4] === "X" && arr[8] === "X"){
-            over = 1; 
-        }
-      //  return over;
-    //}
-
-      //  oGameData.checkDiagonalRightToLeft = function(){
-
-        if (arr[2] === "O" && arr[4] === "O" && arr[6] === "O"){
-            over = 2;   
-        } 
-        else if (arr[2] === "X" && arr[4] === "X" && arr[6] === "X"){
-            over = 1;
-        }
-    //}
-       // oGameData.checkForDraw = function(){
-
-     //   }
-
-    return over;
+    if (oGameData.checkHorizontal() !== false){ // Sätter win till returvärdet, 'X' eller 'O', om false inte returneras.
+        win = oGameData.checkHorizontal();
     }
-/*
-    oGameData.checkHorizontal = function(){
 
-        var arr = oGameData.gameField;
-        var win = 0;
+    if (oGameData.checkVertical() !== false){   // Sätter win till returvärdet, 'X' eller 'O', om false inte returneras.
+        win = oGameData.checkVertical();
+    }
 
-        for (let i = 0; i<9; i+3){
-            if (arr[i] != '' && arr[i] === arr[i+1] && arr[i+1] === arr[i+2]){
-                win = arr[i];   
-            }
+    if (oGameData.checkDiagonalLeftToRight() !== false){    // Sätter win till returvärdet, 'X' eller 'O', om false inte returneras.
+        win = oGameData.checkDiagonalLeftToRight();
+    }
+
+    if (oGameData.checkDiagonalRightToLeft() !== false){    // Sätter win till returvärdet, 'X' eller 'O', om false inte returneras.
+        win = oGameData.checkDiagonalRightToLeft();
+    }
+
+
+    if (win === 'X'){                       // Kollar värdet på win 
+        return 1;                           // och returnerar 0, 1, 2 eller 3.
+    } else if (win === 'O'){                
+        return 2;
+    } else if (win === 'draw'){
+        return 3;
+    } else {
+        return 0;
+    }
+
+
+    }
+
+    oGameData.checkHorizontal = function(){ /*Returnerar värdet på den första platsen i arrayen där den hittade 3 
+                                            i rad horisontellt, annars returnerar det false.*/
+        let arr = oGameData.gameField;
         
-       }return win;
+
+        for (let i = 0; i<9; i+=3){
+            if (arr[i] != '' && arr[i] === arr[i+1] && arr[i+1] === arr[i+2]){
+                return arr[i];   
+            }
+        }
+        return false;
     }
 
-    oGameData.checkVertical = function (){
+    oGameData.checkVertical = function (){  /*Returnerar värdet på den första platsen i arrayen där den hittade 3 
+                                            i rad vertikalt, annars returnerar det false.*/
 
         var arr = oGameData.gameField;
-        var win = 0;
+        
 
         for (let i = 0; i<3; i++){
             if (arr[i] != '' && arr[i] === arr[i+3] && arr[i+3] === arr[i+6]){
-                win = arr[i];     
+                return arr[i];     
             }
-        return win;
         }
+        return false;
     }
 
 
-    oGameData.checkDiagonalLeftToRight = function(){
-
-        var arr = oGameData.gameField;
-        var win = 0;
+    oGameData.checkDiagonalLeftToRight = function(){ /*Returnerar värdet på den första platsen i arrayen där den hittade 3 
+                                                     i rad diagonalt från vänster till höger, annars returnerar det false.*/
+        var arr = oGameData.gameField;  
+        
 
         if (arr[0] != '' && arr[0] === arr[4] && arr[4] === arr [8]){
-            win = arr[0];
+            return arr[0];
         }
-        return win;
-    }*/
+        return false;
+    }
+
+    oGameData.checkDiagonalRightToLeft = function(){ /*Returnerar värdet på den första platsen i arrayen där den hittade 3 
+                                                     i rad diagonalt från höger till vänster, annars returnerar det false.*/
+
+        var arr = oGameData.gameField;
+        
+
+        if (arr[2] != '' && arr[2] === arr[4] && arr[4] === arr [6]){
+            return arr[2];
+        }
+        return false;
+    }
+
+    oGameData.checkForDraw = function() {  //Returnerar false om det finns en tom plats i arrayen, returner true om hela loopen körs igenom.
+
+        var arr = oGameData.gameField;
+ 
+
+        for (let i = 0; i < 9 ; i++){
+            if (arr[i] === ""){
+                return false;
+                }
+            }
+        return true;
+    }
 
 
-    window.addEventListener( "load", function(){
-    
+    window.addEventListener( "load", function(){    //Kallar på oGameData.initGlobalObject(); när sidan har laddats, 
+                                                    //Gömmer spelplanen och sätter en lyssnare på newGame knappen som   
+                                                    // kallar på validateForm när den klickas.
         oGameData.initGlobalObject();
         document.querySelector("#game-area").classList.add("d-none");
 
-        console.log("nu är sidan laddad");
+        
         
         newGame.addEventListener("click", validateForm);
     });
 
     
-    //funktion som validerar att nicks är större än 5, samt colors inte är vit eller svart eller samma.
-    function validateForm(oEvt) {
+    
+    function validateForm(oEvt) {               //Kontrollerar att nicknames inte är tomma,
+                                                //kortare än 5 karaktärer och inte är samma för båda.
+                                                //Kontrollerar att färgerna inte är svart, vit eller samma för båda.
+                                                //Kallar på initiateGame(); om inget error kastas.
 
         let nickNames = document.querySelectorAll('input[type="text"]');
         let colors = document.querySelectorAll('input[type="color"]');
@@ -293,7 +254,11 @@ oGameData.checkForGameOver = function() {
     
     }
     
-    function initiateGame() {
+    function initiateGame() {       //Gör spelplanen synlig, gömmer formuläret och tömmer errorMsg.
+                                    //Hämtar nicknames och färg och tilldelar de till spelare 1 och spelare 2.
+                                    //Slumpar vem som ska börja med math.random.
+
+
         document.querySelector("form").classList.add("d-none");
         document.querySelector("#game-area").classList.remove("d-none");
         document.querySelector('#errorMsg').textContent = "";
@@ -346,15 +311,8 @@ oGameData.checkForGameOver = function() {
 
 
 
-    }
-    /*
-oGameData.initGlobalObject();
-console.log( oGameData.checkHorizontal() );
-console.log( oGameData.checkVertical() );
-console.log( oGameData.checkDiagonalLeftToRight() );
-//console.log( oGameData.checkDiagonalRightToLeft() );
-//console.log( oGameData.checkForDraw() );
+    }*/
 
 
-*/
+
 
