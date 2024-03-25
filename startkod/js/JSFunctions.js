@@ -298,32 +298,53 @@ oGameData.checkForGameOver = function() {
     
         if(oEvt.target.nodeName === 'TD' && oEvt.target.textContent === ""){
 
-            oEvt.target.textContent = oGameData.currentPlayer;
-            oGameData.gameField[oEvt.target.getAttribute("data-id")] = oGameData.currentPlayer;
+            let ruta = oEvt.target;
+
+            let char = document.createTextNode(oGameData.currentPlayer);
+            ruta.appendChild(char);
+
+            let h1 = document.querySelector(".jumbotron h1");
+
+            oGameData.gameField[ruta.getAttribute("data-id")] = oGameData.currentPlayer;
 
             
 
             if (oGameData.currentPlayer === "X"){ 
-                oEvt.target.style.backgroundColor = oGameData.colorPlayerOne;
+                ruta.style.backgroundColor = oGameData.colorPlayerOne;
             }else {
-                oEvt.target.style.backgroundColor = oGameData.colorPlayerTwo;
+                ruta.style.backgroundColor = oGameData.colorPlayerTwo;
             }
 
             if (oGameData.currentPlayer === "X"){ 
                 oGameData.currentPlayer = oGameData.playerTwo;
-                document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är " + oGameData.nickNamePlayerTwo + "(" + oGameData.currentPlayer + ")";
+                let text = document.createTextNode("Aktuell spelare är " + oGameData.nickNamePlayerTwo + "(" + oGameData.currentPlayer + ")");
+                h1.replaceChildren(text);
             }else {
                 oGameData.currentPlayer = oGameData.playerOne;
-                document.querySelector(".jumbotron h1").textContent = "Aktuell spelare är " + oGameData.nickNamePlayerOne + "(" + oGameData.currentPlayer + ")";
+                let text = document.createTextNode("Aktuell spelare är " + oGameData.nickNamePlayerOne + "(" + oGameData.currentPlayer + ")");
+                h1.replaceChildren(text);
             }
-    
-            if (oGameData.checkForGameOver() > 0){
-                document.querySelector(".jumbotron h1").textContent = "Grattis någon vann!";
+
+            let over = oGameData.checkForGameOver();
+
+            if (over > 0){
+
+                oEvt.currentTarget.removeEventListener('click', executeMove);
+                document.querySelector('form').classList.remove('d-none');
+                document.querySelector('#game-area').classList.add('d-none');
+
+                if (over === 1){
+                    let vinnare = document.createTextNode(oGameData.nickNamePlayerOne + '(X) är vinnare! Spela igen?');
+                    h1.replaceChildren(vinnare);
+                } else if (over === 2){
+                    let vinnare = document.createTextNode(oGameData.nickNamePlayerTwo + '(O) är vinnare! Spela igen?');
+                    h1.replaceChildren(vinnare);
+                } else if (over === 3){
+                    let vinnare = document.createTextNode('Det blev oavgjort! Spela igen?');
+                    h1.replaceChildren(vinnare);
+                }
+                oGameData.initGlobalObject();
             }
-            console.log(oGameData.checkForGameOver());
-            console.log(oEvt.target.textContent);
-            console.log(oGameData.gameField);
-            console.log(oEvt.target);
         }
     } 
 
