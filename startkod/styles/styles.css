@@ -59,20 +59,25 @@ main {
   }
 
   #div-with-a {
-    border: 1px solid dodgerblue;
-    background-color: dodgerblue;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    width: fit-content;
+    margin-top: 0.5rem;
+    width: 100%;
     height: 25px;
     padding: 2px;
-    margin-left: auto;
   }
 
   #newGame {
+    border: 1px solid dodgerblue;
+    background-color: dodgerblue;
+    border-radius: 0.5rem;
     color: white;
     text-decoration: none;
-    padding: 0.5rem;
+    padding: 0.2rem;
+    float: right;
+  }
+
+  #newGame:hover {
+    border-color: pink;
+    background-color: pink;
   }
 
   aside {
@@ -162,11 +167,6 @@ main {
     
     html {
         font-size: 22px;
-    }
-
-    #div-with-a:hover {
-        background-color: pink;
-        border: 1px solid pink;
     }
 
   }
