@@ -322,7 +322,8 @@ oGameData.checkForGameOver = function() {
         document.querySelector('table').addEventListener('click', executeMove);
     }
 
-    function executeMove(oEvt){
+    function executeMove(oEvt){     //Gör att om man klickar på en td på table fylls rutan med spelarens karkatär plus vald färg
+                                    //kontrollerar också att rutan inte redan är fylld
     
         let id = oEvt.target.getAttribute("data-id");
         
@@ -384,7 +385,7 @@ oGameData.checkForGameOver = function() {
         }
     } 
 
-    function changePlayer(){
+    function changePlayer(){        //Gör så att spelaren byts efter varje drag
 
         let h1 = document.querySelector(".jumbotron h1");
 
